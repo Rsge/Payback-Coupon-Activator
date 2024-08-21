@@ -5,14 +5,16 @@
 // @description    Activates all Payback coupons on a shop's site before continuing to site.
 // @description:de Aktiviert alle Payback-Coupons auf der Seite eines Shops und leitet dann auf die Seite weiter.
 
-// @version        1.0.0
+// @version        1.0.1
 // @copyright      2024+, Jan G. (Rsge)
 // @license        Mozilla Public License 2.0
 // @icon           https://www.payback.de/resource/blob/4506/b8323ff55b34054722769ae5652c22ae/main-favicon.ico
 
 // @namespace      https://github.com/Rsge
-// @homepageURL    https://github.com/Rsge
-// @supportURL     https://github.com/Rsge
+// @homepageURL    https://github.com/Rsge/Payback-Coupon-Activator
+// @supportURL     https://github.com/Rsge/Payback-Coupon-Activator/issues
+// @updateURL      https://update.greasyfork.org/scripts/504550/Payback%20Coupon%20Activator.user.js
+// @downloadURL    https://update.greasyfork.org/scripts/504550/Payback%20Coupon%20Activator.user.js
 
 // @match          https://www.payback.de/shop/*
 
