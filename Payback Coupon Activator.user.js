@@ -5,7 +5,7 @@
 // @description    Activates all Payback coupons on a shop's site before continuing to site.
 // @description:de Aktiviert alle Payback-Coupons auf der Seite eines Shops und leitet dann auf die Seite weiter.
 
-// @version        1.0.1
+// @version        1.0.2
 // @copyright      2024+, Jan G. (Rsge)
 // @license        Mozilla Public License 2.0
 // @icon           https://www.payback.de/resource/blob/4506/b8323ff55b34054722769ae5652c22ae/main-favicon.ico
@@ -60,7 +60,7 @@
     }
   }
   // Continue to shop.
-  await sleep(T);
+  await sleep(3*T);
   let continueButton = document.getElementById("jts-button");
   continueButton.click();
 })();
