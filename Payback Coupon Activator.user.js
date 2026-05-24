@@ -5,7 +5,7 @@
 // @description    Activates all Payback coupons on a shop's site before continuing to site.
 // @description:de Aktiviert alle Payback-Coupons auf der Seite eines Shops und leitet dann auf die Seite weiter.
 
-// @version        1.0.2
+// @version        1.1.0
 // @copyright      2024+, Jan G. (Rsge)
 // @license        Mozilla Public License 2.0
 // @icon           https://www.payback.de/resource/blob/4506/b8323ff55b34054722769ae5652c22ae/main-favicon.ico
@@ -13,13 +13,13 @@
 // @namespace      https://github.com/Rsge
 // @homepageURL    https://github.com/Rsge/Payback-Coupon-Activator
 // @supportURL     https://github.com/Rsge/Payback-Coupon-Activator/issues
-// @updateURL      https://update.greasyfork.org/scripts/504550/Payback%20Coupon%20Activator.user.js
-// @downloadURL    https://update.greasyfork.org/scripts/504550/Payback%20Coupon%20Activator.user.js
 
 // @match          https://www.payback.de/shop/*
 
 // @run-at         document-idle
 // @grant          none
+// @downloadURL https://update.greasyfork.org/scripts/504550/Payback%20Coupon%20Activator.user.js
+// @updateURL https://update.greasyfork.org/scripts/504550/Payback%20Coupon%20Activator.meta.js
 // ==/UserScript==
 
 (async function () {
@@ -36,31 +36,28 @@
   }
 
   // Wait for loading of and get coupon nutshell.
-  let couponNutshell;
+  let couponBox;
   do {
     await sleep(T);
     try {
-      let mainBox = document.getElementsByClassName("global-jts-partner__info-box")[0];
-      couponNutshell = mainBox.children[1].shadowRoot.children[0];
-    } catch {
-      console.log(WAITING_MSG);
-    }
-  } while (couponNutshell == null);
-  // Skip activation if no coupons are present.
-  if (!couponNutshell.className.startsWith("pbc-partner-condition")) {
-    // Activate all inactive coupons.
-    let couponBox = couponNutshell.getElementsByClassName("coupon-nutshell__container")[0].children[1];
-    let i;
-    for (i = 0; i < couponBox.children.length; i++) {
-      let coupon = couponBox.children[i].shadowRoot.children[0];
-      let couponButton = coupon.children[3].shadowRoot.children[0].firstElementChild;
-      if (couponButton.className.endsWith("not-activated")) {
-        couponButton.click();
+      couponBox = document.getElementsByClassName("MuiStack-root mui-1kfiduk")[0];
+      if (couponBox.attributes["data-testid"]) {
+        break;
       }
+    } catch {}
+    console.log(WAITING_MSG);
+  } while (true);
+  // Activate all inactive coupons.
+  let i;
+  for (i = 0; i < couponBox.children.length; i++) {
+    let coupon = couponBox.children[i].firstElementChild.firstElementChild;
+    let couponButton = coupon.children[1].children[1].firstElementChild.firstElementChild;
+    if (couponButton.attributes["data-testid"].value.endsWith("not_activated")) {
+      couponButton.click();
     }
   }
   // Continue to shop.
   await sleep(3*T);
-  let continueButton = document.getElementById("jts-button");
+  let continueButton = document.getElementById("submit-button");
   continueButton.click();
 })();
